@@ -38,23 +38,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-    private String get() {
-        OkHttpClient client = new OkHttpClient();
-        try{
-            Request request = new Request.Builder().url("https://google.com").build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return response.body().string();
-            } else {
-                throw new IOException("Unexpected code " + response);
-            }
-        }catch (IOException e){
-
-        }
-        return "";
-    }
 }
 
