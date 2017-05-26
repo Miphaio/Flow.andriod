@@ -35,17 +35,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 T01.setText(E01.getText());
                 T02.setText(E02.getText());
-                new Thread() {
-                    @Override
-                    public void run() {
-                        get();
-                        T01.setText("dsada");
-                    }
-                }.start();
-
             }
         });
     }
+
+    
+
     private String get() {
         OkHttpClient client = new OkHttpClient();
         try{
