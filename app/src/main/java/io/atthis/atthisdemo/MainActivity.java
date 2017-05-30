@@ -48,12 +48,27 @@ public class MainActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                T01.setText("Failure!");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        T01.setText("Failure!");
+                    }
+                });
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                T01.setText(response.body().string());
+            public void onResponse(Call call, final Response response){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            T01.setText(response.body().string());
+                        }catch(IOException e){
+
+                        }
+
+                    }
+                });
             }
         });
     }
