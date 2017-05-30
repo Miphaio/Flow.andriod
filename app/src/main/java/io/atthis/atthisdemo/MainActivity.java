@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -24,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button B01;
     private EditText E01;
     private EditText E02;
-    private TextView T01;
-    private TextView T02;
-    private Button B02;
+    private TextView Terror;
     public static final String TAG = "MainActivity";
     private OkHttpClient client;
     @Override
@@ -36,23 +36,12 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Atthis");
 
         B01 = (Button) this.findViewById(R.id.btn01);
-        B02 = (Button) this.findViewById(R.id.B02);
         E01 = (EditText) this.findViewById(R.id.username);
         E02 = (EditText)this.findViewById(R.id.password);
-        T01 = (TextView) this.findViewById(R.id.hintusername);
-        T02 = (TextView) this.findViewById(R.id.hintpassword);
+        Terror = (TextView) this.findViewById(R.id.Terror);
         B01.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-//                T01.setText(E01.getText());
-//                T02.setText(E02.getText());
                 getLoginContent();
-            }
-        });
-        B02.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-               Intent intent = new Intent();
-                intent.setClass(MainActivity.this  , SwitchActivity.class);
-                startActivity(intent);
             }
         });
         client = new OkHttpClient();
@@ -67,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        T01.setText("Failure!");
+                        Terror.setText("Network Error");
                     }
                 });
             }
@@ -81,15 +70,15 @@ public class MainActivity extends AppCompatActivity {
                             Gson gson = new Gson();
                             ReturnValue returnValue = gson.fromJson(response.body().string(), ReturnValue.class);
                             if(returnValue.status.equals("succeed")){
-                                T01.setText(returnValue.authority);
                                 Intent intent = new Intent();
+                                Terror.setText("Success, Loading");
                                 intent.setClass(MainActivity.this  , TaskActivity.class);
                                 intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
                                         .putExtra("token", returnValue.token).putExtra("id", returnValue.id);
                                 startActivity(intent);
                                 MainActivity.this.finish();
                             }else{
-                                T01.setText(returnValue.status);
+                                Terror.setText(returnValue.status);
                             }
 
                         }catch(IOException e){
