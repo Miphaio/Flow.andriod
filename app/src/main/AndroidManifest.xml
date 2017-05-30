@@ -20,7 +20,11 @@
         </activity>
         <activity
             android:name=".SwitchActivity"
-            android:label="@string/title_activity_switch"></activity>
+            android:label="@string/title_activity_switch" />
+        <activity
+            android:name=".TaskActivity"
+            android:label="@string/title_activity_task"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

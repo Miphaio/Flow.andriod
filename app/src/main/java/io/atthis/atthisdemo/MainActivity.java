@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("Atthis");
 
         B01 = (Button) this.findViewById(R.id.btn01);
         B02 = (Button) this.findViewById(R.id.B02);
@@ -79,11 +80,18 @@ public class MainActivity extends AppCompatActivity {
                         try{
                             Gson gson = new Gson();
                             ReturnValue returnValue = gson.fromJson(response.body().string(), ReturnValue.class);
-                            T01.setText(returnValue.authority);
-                            Intent intent = new Intent();
-                            intent.setClass(MainActivity.this  , SwitchActivity.class);
-                            startActivity(intent);
-                            MainActivity.this.finish();
+                            if(returnValue.status.equals("succeed")){
+                                T01.setText(returnValue.authority);
+                                Intent intent = new Intent();
+                                intent.setClass(MainActivity.this  , TaskActivity.class);
+                                intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
+                                        .putExtra("token", returnValue.token).putExtra("id", returnValue.id);
+                                startActivity(intent);
+                                MainActivity.this.finish();
+                            }else{
+                                T01.setText(returnValue.status);
+                            }
+
                         }catch(IOException e){
 
                         }
