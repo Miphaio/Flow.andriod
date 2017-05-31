@@ -42,7 +42,7 @@ public class TaskActivity extends AppCompatActivity {
         userinfo.id = intent.getStringExtra("id");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        listView.setAdapter(new ArrayAdapter<String>(this,
+        listView.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, getData()));
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         client = new OkHttpClient();
@@ -84,10 +84,7 @@ public class TaskActivity extends AppCompatActivity {
                             MainActivity.ReturnValue returnValue = gson.fromJson(response.body().string(), MainActivity.ReturnValue.class);
                             if(returnValue.status.equals("succeed")){
                                 Intent intent = new Intent();
-//                                Terror.setText("Success, Loading");
                                 intent.setClass(TaskActivity.this  , DetailActivity.class);
-                                intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
-                                        .putExtra("token", returnValue.token).putExtra("id", returnValue.id);
                                 startActivity(intent);
                                 TaskActivity.this.finish();
                             }else{
@@ -103,15 +100,22 @@ public class TaskActivity extends AppCompatActivity {
             }
         });
     }
-    private List<String> getData(){
+    private List<Tester> getData(){
 
-        List<String> data = new ArrayList<String>();
-        data.add("测试数据1");
-        data.add("测试数据2");
-        data.add("测试数据3");
-        data.add("测试数据4");
+        List<Tester> data = new ArrayList<Tester>();
+        data.add(new Tester());
 
         return data;
+    }
+    public class Tester{
+        public String title;
+        public int location;
+
+        public Tester(){
+            this.title = "titjit";
+            this.location = 123;
+        }
+
     }
     public class UserInfo{
         public String authority;

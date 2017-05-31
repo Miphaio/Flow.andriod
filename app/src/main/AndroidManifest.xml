@@ -100,7 +100,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <!-- Required SDK核心功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
@@ -139,7 +139,8 @@
             android:name="JPUSH_APPKEY"
             android:value="5b8497fcd134f3f89362ef06" />
 
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".TaskNewActivity"></activity>
     </application>
 
 </manifest>

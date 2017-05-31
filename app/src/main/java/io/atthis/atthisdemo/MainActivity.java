@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         setTitle("Atthis");
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                             if(returnValue.status.equals("succeed")){
                                 Intent intent = new Intent();
                                 Terror.setText("Success, Loading");
-                                intent.setClass(MainActivity.this  , TaskActivity.class);
+                                intent.setClass(MainActivity.this, TaskNewActivity.class);
                                 intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
                                         .putExtra("token", returnValue.token).putExtra("id", returnValue.id);
                                 startActivity(intent);
