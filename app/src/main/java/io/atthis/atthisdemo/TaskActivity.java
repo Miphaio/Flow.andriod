@@ -10,12 +10,10 @@ import android.view.View;
 import android.widget.TextView;
 
 public class TaskActivity extends AppCompatActivity {
-    TextView T01;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
-        T01 = (TextView) this.findViewById(R.id.T01);
         setTitle("My Tasks");
         Intent intent = getIntent();
         UserInfo userinfo = new UserInfo();
@@ -25,7 +23,6 @@ public class TaskActivity extends AppCompatActivity {
         userinfo.id = intent.getStringExtra("id");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        T01.setText(userinfo.toString());
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

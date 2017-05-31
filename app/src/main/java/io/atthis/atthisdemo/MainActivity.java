@@ -14,6 +14,7 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -33,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         setTitle("Atthis");
-
         B01 = (Button) this.findViewById(R.id.btn01);
         E01 = (EditText) this.findViewById(R.id.username);
         E02 = (EditText)this.findViewById(R.id.password);
