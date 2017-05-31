@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private void getLoginContent(){
         RequestBody formBody = new FormBody.Builder().add("username", E01.getText().toString()).add("password",E02.getText().toString()).add("mode","up")
                 .build();
-        final Request request = new Request.Builder().url("http://flow.sushithedog.com/test/Login.php").post(formBody).build();
+        final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/Login.php").post(formBody).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
