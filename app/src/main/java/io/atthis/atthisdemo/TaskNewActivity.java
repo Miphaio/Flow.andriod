@@ -53,6 +53,11 @@ public class TaskNewActivity extends AppCompatActivity {
         B01.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setTitle("button flow");
+                Intent intent = new Intent();
+                intent.setClass(TaskNewActivity.this, TaskDetailActivity.class);
+                intent.putExtra();
+                startActivity(intent);
+                MainActivity.this.finish();
             }
         });
         mData = new ArrayList<>();
@@ -86,7 +91,7 @@ public class TaskNewActivity extends AppCompatActivity {
                             }
                             refresh();
                         }catch(IOException e){
-
+                            setTitle("Error");
                         }
                     }
                 });
