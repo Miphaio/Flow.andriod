@@ -52,12 +52,9 @@ public class TaskNewActivity extends AppCompatActivity {
         mListViewArray = (ListView) findViewById(R.id.newlist);
         B01.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                setTitle("button flow");
                 Intent intent = new Intent();
-                intent.setClass(TaskNewActivity.this, TaskDetailActivity.class);
-                intent.putExtra();
+                intent.setClass(TaskNewActivity.this, SettingActivity.class);
                 startActivity(intent);
-                MainActivity.this.finish();
             }
         });
         mData = new ArrayList<>();
@@ -82,14 +79,20 @@ public class TaskNewActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try{
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<List<returnToken>>(){}.getType();
-                            List<returnToken> rToken = gson.fromJson(response.body().string(), type);
-                            clean();
-                            for(int i=0;i<rToken.size();i++){
-                                mData.add(new TaskDetail(rToken.get(i).getTitle(),rToken.get(i).getSubTitle(),rToken.get(i).getThirdSubTitle()));
+                            String returnjson = response.body().string();
+                            if(returnjson.length()<10){
+                                setTitle("Nothing to show");
+                            }else {
+                                Gson gson = new Gson();
+                                Type type = new TypeToken<List<returnToken>>() {
+                                }.getType();
+                                List<returnToken> rToken = gson.fromJson(returnjson, type);
+                                clean();
+                                for (int i = 0; i < rToken.size(); i++) {
+                                    mData.add(new TaskDetail(rToken.get(i).getTitle(), rToken.get(i).getSubTitle(), rToken.get(i).getThirdSubTitle()));
+                                }
+                                refresh();
                             }
-                            refresh();
                         }catch(IOException e){
                             setTitle("Error");
                         }

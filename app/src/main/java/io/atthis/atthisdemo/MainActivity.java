@@ -39,13 +39,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //J push initial
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         setTitle("Atthis");
+        // initial buttons
         B01 = (Button) this.findViewById(R.id.btn01);
         E01 = (EditText) this.findViewById(R.id.username);
         E02 = (EditText)this.findViewById(R.id.password);
+        //Error log label
         Terror = (TextView) this.findViewById(R.id.Terror);
         client = new OkHttpClient();
         if(testwithtoken()){

@@ -141,7 +141,8 @@
 
         <activity android:name=".DetailActivity" />
         <activity android:name=".TaskNewActivity" />
-        <activity android:name=".TaskDetailActivity"></activity>
+        <activity android:name=".TaskDetailActivity" />
+        <activity android:name=".SettingActivity"></activity>
     </application>
 
 </manifest>
