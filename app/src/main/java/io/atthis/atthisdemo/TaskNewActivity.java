@@ -30,6 +30,7 @@ import okhttp3.Response;
 
 public class TaskNewActivity extends AppCompatActivity {
     private List<TaskDetail> mData;
+    private List<returnToken> syncToken;
     //定义ListView对象
     private ListView mListViewArray;
     private OkHttpClient client;
@@ -86,10 +87,12 @@ public class TaskNewActivity extends AppCompatActivity {
                                 Gson gson = new Gson();
                                 Type type = new TypeToken<List<returnToken>>() {
                                 }.getType();
+                                syncToken = new ArrayList<>();
                                 List<returnToken> rToken = gson.fromJson(Jre, type);
                                 clean();
                                 for (int i = 0; i < rToken.size(); i++) {
                                     mData.add(new TaskDetail(rToken.get(i).getTitle(), rToken.get(i).getSubTitle(), rToken.get(i).getThirdSubTitle()));
+                                    syncToken.add(rToken.get(i));
                                 }
                                 refresh();
                             }
@@ -105,16 +108,23 @@ public class TaskNewActivity extends AppCompatActivity {
         mData = new ArrayList<>();
     }
     private void refresh(){
-//        mData.add(0, new TaskDetail("Logout", ""));
+        //generate layout
         LayoutInflater inflater = getLayoutInflater();
         TaskAdapter adapter = new TaskAdapter(inflater, mData);
         mListViewArray.setAdapter(adapter);
         //Click function of List view
         mListViewArray.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
-                setTitle(position + "Clicked");
+//                setTitle(position + "Clicked");
+                jumpWithToken(syncToken.get(position));
             }
         });
+    }
+    private void jumpWithToken(returnToken reT){
+        Intent intent = new Intent();
+        intent.setClass(TaskNewActivity.this, TaskDetailActivity.class);
+        reT.addExtra(intent);
+        startActivity(intent);
     }
     public class UserInfo{
         public String authority;
@@ -151,6 +161,17 @@ public class TaskNewActivity extends AppCompatActivity {
         }
         public String getThirdSubTitle(){
             return "Car VIN: "+vin;
+        }
+        public void addExtra(Intent intent){
+            intent.putExtra("id", id).putExtra("seller",seller)
+                    .putExtra("car_info", car_info).putExtra("vin", vin)
+                    .putExtra("stage", stage).putExtra("stage1Created", stage1Created)
+                    .putExtra("stage2Created", stage2Created).putExtra("stage3Created", stage3Created)
+                    .putExtra("status", status).putExtra("stage1Officer_id", stage1Officer_id)
+                    .putExtra("stage2Officer_id", stage2Officer_id).putExtra("stage3Officer_id", stage3Officer_id)
+                    .putExtra("stage1Note", stage1Note).putExtra("stage3Officer_id", stage3Officer_id)
+                    .putExtra("stage3Officer_id", stage3Officer_id).putExtra("stage2Note", stage2Note)
+                    .putExtra("stage3Note", stage3Note).putExtra("closeTime", closeTime);
         }
         public String toString(){
             return id+seller+car_info+vin;
