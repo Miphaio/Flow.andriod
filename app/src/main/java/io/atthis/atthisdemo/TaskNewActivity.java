@@ -79,14 +79,14 @@ public class TaskNewActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try{
-                            String returnjson = response.body().string();
-                            if(returnjson.length()<10){
+                            String Jre = response.body().string();
+                            if(Jre.length()<10){
                                 setTitle("Nothing to show");
-                            }else {
+                            }else{
                                 Gson gson = new Gson();
                                 Type type = new TypeToken<List<returnToken>>() {
                                 }.getType();
-                                List<returnToken> rToken = gson.fromJson(returnjson, type);
+                                List<returnToken> rToken = gson.fromJson(Jre, type);
                                 clean();
                                 for (int i = 0; i < rToken.size(); i++) {
                                     mData.add(new TaskDetail(rToken.get(i).getTitle(), rToken.get(i).getSubTitle(), rToken.get(i).getThirdSubTitle()));
