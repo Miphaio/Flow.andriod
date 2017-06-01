@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -44,10 +46,13 @@ public class TaskAdapter extends BaseAdapter {
         //获得自定义布局中每一个控件的对象。
         TextView title = (TextView) viewTask.findViewById(R.id.titler);
         TextView tester = (TextView) viewTask.findViewById(R.id.tester);
+        TextView tester2 = (TextView) viewTask.findViewById(R.id.tester2);
         //将数据一一添加到自定义的布局中。
         title.setText(task.getTitle());
         tester.setText(task.getTester());
+        tester2.setText(task.getTester2());
         return viewTask ;
     }
+//    public View getView()
 
 }

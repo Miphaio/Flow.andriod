@@ -1,6 +1,9 @@
 package io.atthis.atthisdemo;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +16,10 @@ import com.google.gson.Gson;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -42,12 +47,74 @@ public class MainActivity extends AppCompatActivity {
         E01 = (EditText) this.findViewById(R.id.username);
         E02 = (EditText)this.findViewById(R.id.password);
         Terror = (TextView) this.findViewById(R.id.Terror);
-        B01.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                getLoginContent();
+        client = new OkHttpClient();
+        if(testwithtoken()){
+            sendLoginWithToken();
+        }else {
+            B01.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    getLoginContent();
+                }
+            });
+        }
+    }
+    private boolean testwithtoken(){
+        SharedPreferences preferences = getSharedPreferences("userInfo",  Activity.MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        if(token.length()>0){
+            return true;
+        }
+        return false;
+    }
+    private void sendLoginWithToken(){
+        SharedPreferences preferences = getSharedPreferences("userInfo",  Activity.MODE_PRIVATE);
+        String token = preferences.getString("token", "");
+        RequestBody formBody = new FormBody.Builder().add("token", token).add("mode","token")
+                .build();
+        final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/Login.php").post(formBody).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Terror.setText("Network Error");
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try{
+                                Gson gson = new Gson();
+                                ReturnValue returnValue = gson.fromJson(response.body().string(), ReturnValue.class);
+                                if(returnValue.status.equals("succeed")){
+                                    Intent intent = new Intent();
+                                    Terror.setText("Success, Loading");
+                                    intent.setClass(MainActivity.this, TaskNewActivity.class);
+                                    intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
+                                            .putExtra("token", returnValue.token).putExtra("id", returnValue.id);
+                                    startActivity(intent);
+                                    MainActivity.this.finish();
+                                }else{
+                                    Terror.setText("Token out of date, using Password");
+                                    B01.setOnClickListener(new View.OnClickListener() {
+                                        public void onClick(View v) {
+                                            getLoginContent();
+                                        }
+                                    });
+                                }
+
+                            }catch(IOException e){
+
+                            }
+                        }
+                    });
             }
         });
-        client = new OkHttpClient();
     }
     private void getLoginContent(){
         RequestBody formBody = new FormBody.Builder().add("username", E01.getText().toString()).add("password",E02.getText().toString()).add("mode","up")
@@ -73,11 +140,24 @@ public class MainActivity extends AppCompatActivity {
                             Gson gson = new Gson();
                             ReturnValue returnValue = gson.fromJson(response.body().string(), ReturnValue.class);
                             if(returnValue.status.equals("succeed")){
+                                SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
+                                editor.putString("token", returnValue.token);
+                                editor.commit();//提交修改
+                                SharedPreferences preferences = getSharedPreferences("userInfo",  Activity.MODE_PRIVATE);
+                                String token = preferences.getString("token", "");
+                                Terror.setText(token);
                                 Intent intent = new Intent();
                                 Terror.setText("Success, Loading");
                                 intent.setClass(MainActivity.this, TaskNewActivity.class);
                                 intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
                                         .putExtra("token", returnValue.token).putExtra("id", returnValue.id);
+                                JPushInterface.setAlias(MainActivity.super.getBaseContext(), returnValue.token, new TagAliasCallback() {
+                                    @Override
+                                    public void gotResult(int i, String s, Set<String> set) {
+                                        Terror.setText(s + i);
+                                    }
+                                });
                                 startActivity(intent);
                                 MainActivity.this.finish();
                             }else{

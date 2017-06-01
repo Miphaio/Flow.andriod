@@ -6,8 +6,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/titler"
@@ -17,16 +17,27 @@
             android:layout_marginTop="3dp"
             android:gravity="center"
             android:text="标题"
-            android:textSize="20sp" />
+            android:textSize="28sp" />
 
         <TextView
             android:id="@+id/tester"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="3dp"
-            android:text="简介"
-            android:textSize="16sp" />
+            android:text="简介s"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tester2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
+            android:text="简介ss"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </LinearLayout>
