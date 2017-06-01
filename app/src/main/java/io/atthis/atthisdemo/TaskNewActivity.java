@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -33,12 +34,14 @@ public class TaskNewActivity extends AppCompatActivity {
     private ListView mListViewArray;
     private OkHttpClient client;
     private UserInfo userinfo;
+    private Button B01;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_new);
         userinfo = new UserInfo();
         Intent intent = getIntent();
+        B01 = (Button) this.findViewById(R.id.flowbutton);
         userinfo.authority = intent.getStringExtra("authority");
         userinfo.username = intent.getStringExtra("username");
         userinfo.token = intent.getStringExtra("token");
@@ -47,7 +50,11 @@ public class TaskNewActivity extends AppCompatActivity {
         client = new OkHttpClient();
         //Initial Customize ListView
         mListViewArray = (ListView) findViewById(R.id.newlist);
-
+        B01.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                setTitle("button flow");
+            }
+        });
         mData = new ArrayList<>();
         initData();
 
