@@ -38,12 +38,14 @@ public class TaskDetailActivity extends AppCompatActivity {
         detailVin.setText(passedRToken.vin);
         detailaccept.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                setTitle(notetext.getText().toString());
+//                setTitle(notetext.getText().toString());
+                sendUpdate("Accept");
             }
         });
         detailreject.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                setTitle("Rejt");
+//                setTitle("Rejt");
+                sendUpdate("Reject");
             }
         });
     }
@@ -57,6 +59,14 @@ public class TaskDetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void sendUpdate(String typo){
+        switch(typo){
+            case "Accept":
+                break;
+            case "Reject":
+                break;
+        }
     }
     public class returnToken{
         public String id;
