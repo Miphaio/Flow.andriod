@@ -62,6 +62,11 @@ public class TaskNewActivity extends AppCompatActivity {
         initData();
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
     private void initData() {
         RequestBody formBody = new FormBody.Builder().add("id", userinfo.id).add("authority", userinfo.authority).add("mode","getTask")
                 .build();
@@ -115,7 +120,6 @@ public class TaskNewActivity extends AppCompatActivity {
         //Click function of List view
         mListViewArray.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
-//                setTitle(position + "Clicked");
                 jumpWithToken(syncToken.get(position));
             }
         });
@@ -123,8 +127,9 @@ public class TaskNewActivity extends AppCompatActivity {
     private void jumpWithToken(returnToken reT){
         Intent intent = new Intent();
         intent.setClass(TaskNewActivity.this, TaskDetailActivity.class);
-        reT.addExtra(intent);
+        reT.addExtra(intent, userinfo);
         startActivity(intent);
+        // TODO when came back, refresh and DONE
     }
     public class UserInfo{
         public String authority;
@@ -162,7 +167,7 @@ public class TaskNewActivity extends AppCompatActivity {
         public String getThirdSubTitle(){
             return "Car VIN: "+vin;
         }
-        public void addExtra(Intent intent){
+        public void addExtra(Intent intent, UserInfo userinfo){
             intent.putExtra("id", id).putExtra("seller",seller)
                     .putExtra("car_info", car_info).putExtra("vin", vin)
                     .putExtra("stage", stage).putExtra("stage1Created", stage1Created)
@@ -171,7 +176,8 @@ public class TaskNewActivity extends AppCompatActivity {
                     .putExtra("stage2Officer_id", stage2Officer_id).putExtra("stage3Officer_id", stage3Officer_id)
                     .putExtra("stage1Note", stage1Note).putExtra("stage3Officer_id", stage3Officer_id)
                     .putExtra("stage3Officer_id", stage3Officer_id).putExtra("stage2Note", stage2Note)
-                    .putExtra("stage3Note", stage3Note).putExtra("closeTime", closeTime);
+                    .putExtra("stage3Note", stage3Note).putExtra("closeTime", closeTime)
+                    .putExtra("userInfoId", userinfo.id);
         }
         public String toString(){
             return id+seller+car_info+vin;
