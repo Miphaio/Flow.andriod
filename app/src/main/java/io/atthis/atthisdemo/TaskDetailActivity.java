@@ -4,9 +4,21 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class TaskDetailActivity extends AppCompatActivity {
     private returnToken passedRToken;
+    private TextView detailseller;
+    private TextView detailVin;
+    private TextView detailinfo;
+    private EditText notetext;
+    private Button detailaccept;
+    private Button detailreject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -14,8 +26,26 @@ public class TaskDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         passedRToken = new returnToken(intent);
+        detailseller = (TextView) this.findViewById(R.id.DetailSeller);
+        detailVin = (TextView) this.findViewById(R.id.DetailVIN);
+        detailinfo = (TextView) this.findViewById(R.id.DetailInfo);
+        notetext = (EditText) this.findViewById(R.id.NoteText);
+        detailaccept = (Button) this.findViewById(R.id.DetailAccept);
+        detailreject = (Button) this.findViewById(R.id.DetailReject);
         setTitle(passedRToken.toString());
-
+        detailseller.setText(passedRToken.seller);
+        detailinfo.setText(passedRToken.car_info);
+        detailVin.setText(passedRToken.vin);
+        detailaccept.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                setTitle(notetext.getText().toString());
+            }
+        });
+        detailreject.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                setTitle("Rejt");
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

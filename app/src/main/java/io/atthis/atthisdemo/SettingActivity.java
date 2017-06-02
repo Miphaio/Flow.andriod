@@ -10,6 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
+
 public class SettingActivity extends AppCompatActivity {
     private Button Logout;
     @Override
@@ -26,6 +31,12 @@ public class SettingActivity extends AppCompatActivity {
                 editor.commit();
                 Intent intent = new Intent();
                 intent.setClass(SettingActivity.this, MainActivity.class);
+                JPushInterface.setAlias(SettingActivity.super.getBaseContext(), "logout", new TagAliasCallback() {
+                    @Override
+                    public void gotResult(int i, String s, Set<String> set) {
+                        setTitle(i+"");
+                    }
+                });
                 startActivity(intent);
                 SettingActivity.this.finish();
             }
