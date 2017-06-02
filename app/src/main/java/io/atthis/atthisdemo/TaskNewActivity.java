@@ -158,6 +158,7 @@ public class TaskNewActivity extends AppCompatActivity {
         public String stage2Note;
         public String stage3Note;
         public String closeTime;
+        public ArrayList<returnNote> notes;
         public String getTitle(){
             return "Selling Process";
         }
@@ -181,6 +182,17 @@ public class TaskNewActivity extends AppCompatActivity {
         }
         public String toString(){
             return id+seller+car_info+vin;
+        }
+    }
+    public class returnNote{
+        public String id;
+        public String msg;
+        public String officer_id;
+        public String task_id;
+        public String stage;
+
+        public String toString(){
+            return id;
         }
     }
 }
