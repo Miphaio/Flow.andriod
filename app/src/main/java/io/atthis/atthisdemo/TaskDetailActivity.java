@@ -34,6 +34,7 @@ public class TaskDetailActivity extends AppCompatActivity {
     private TextView detailseller;
     private TextView detailVin;
     private TextView detailinfo;
+    private TextView detailnotes;
     private EditText notetext;
     private Button detailaccept;
     private Button detailreject;
@@ -48,6 +49,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         detailseller = (TextView) this.findViewById(R.id.DetailSeller);
         detailVin = (TextView) this.findViewById(R.id.DetailVIN);
         detailinfo = (TextView) this.findViewById(R.id.DetailInfo);
+        detailnotes = (TextView) this.findViewById(R.id.DetailNotes);
         notetext = (EditText) this.findViewById(R.id.NoteText);
         detailaccept = (Button) this.findViewById(R.id.DetailAccept);
         detailreject = (Button) this.findViewById(R.id.DetailReject);
@@ -55,6 +57,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         detailseller.setText(passedRToken.seller);
         detailinfo.setText(passedRToken.car_info);
         detailVin.setText(passedRToken.vin);
+        detailnotes.setText(passedRToken.notes);
         client = new OkHttpClient();
         detailaccept.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -138,6 +141,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         public String stage3Note;
         public String closeTime;
         public String officerid;
+        public String notes;
         public returnToken(Intent intent){
             id = intent.getStringExtra("id");
             seller = intent.getStringExtra("seller");
@@ -156,6 +160,7 @@ public class TaskDetailActivity extends AppCompatActivity {
             stage3Note = intent.getStringExtra("stage3Note");
             closeTime = intent.getStringExtra("closeTime");
             officerid = intent.getStringExtra("userInfoId");
+            notes = intent.getStringExtra("notes");
         }
         public String toString(){
             return id+seller+car_info;

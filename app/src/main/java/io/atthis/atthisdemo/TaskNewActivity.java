@@ -178,21 +178,27 @@ public class TaskNewActivity extends AppCompatActivity {
                     .putExtra("stage1Note", stage1Note).putExtra("stage3Officer_id", stage3Officer_id)
                     .putExtra("stage3Officer_id", stage3Officer_id).putExtra("stage2Note", stage2Note)
                     .putExtra("stage3Note", stage3Note).putExtra("closeTime", closeTime)
-                    .putExtra("userInfoId", userinfo.id);
+                    .putExtra("userInfoId", userinfo.id).putExtra("notes", notesToAllString());
+        }
+        private String notesToAllString(){
+            String re = "";
+            for(int i=0;i<notes.size();i++){
+                re+=notes.get(i).toString();
+            }
+            return re;
         }
         public String toString(){
             return id+seller+car_info+vin;
         }
     }
     public class returnNote{
-        public String id;
         public String msg;
-        public String officer_id;
-        public String task_id;
         public String stage;
+        public String firstname;
+        public String lastname;
 
         public String toString(){
-            return id;
+            return firstname+lastname+"@"+stage+":\n"+msg+"\n";
         }
     }
 }
