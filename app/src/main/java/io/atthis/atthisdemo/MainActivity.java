@@ -98,7 +98,9 @@ public class MainActivity extends AppCompatActivity {
                                     Terror.setText("Success, Loading");
                                     intent.setClass(MainActivity.this, TaskNewActivity.class);
                                     intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
-                                            .putExtra("token", returnValue.token).putExtra("id", returnValue.id);
+                                            .putExtra("token", returnValue.token).putExtra("id", returnValue.id)
+                                            .putExtra("firstname", returnValue.firstname)
+                                            .putExtra("lastname", returnValue.lastname);
                                     startActivity(intent);
                                     MainActivity.this.finish();
                                 }else{
@@ -152,8 +154,12 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent();
                                 Terror.setText("Success, Loading");
                                 intent.setClass(MainActivity.this, TaskNewActivity.class);
-                                intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
-                                        .putExtra("token", returnValue.token).putExtra("id", returnValue.id);
+                                intent.putExtra("username", returnValue.username)
+                                        .putExtra("authority",returnValue.authority)
+                                        .putExtra("token", returnValue.token)
+                                        .putExtra("id", returnValue.id)
+                                        .putExtra("firstname", returnValue.firstname)
+                                        .putExtra("lastname", returnValue.lastname);
                                 JPushInterface.setAlias(MainActivity.super.getBaseContext(), returnValue.token, new TagAliasCallback() {
                                     @Override
                                     public void gotResult(int i, String s, Set<String> set) {
@@ -179,6 +185,8 @@ public class MainActivity extends AppCompatActivity {
         public String status;
         public String authority;
         public String username;
+        public String firstname;
+        public String lastname;
         public String token;
         public String id;
     }

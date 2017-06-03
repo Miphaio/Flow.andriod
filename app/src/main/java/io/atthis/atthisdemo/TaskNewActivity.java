@@ -45,6 +45,8 @@ public class TaskNewActivity extends AppCompatActivity {
         userinfo.username = intent.getStringExtra("username");
         userinfo.token = intent.getStringExtra("token");
         userinfo.id = intent.getStringExtra("id");
+        userinfo.firstname = intent.getStringExtra("firstname");
+        userinfo.lastname = intent.getStringExtra("lastname");
         refreshableView = (RefreshableView) findViewById(R.id.refreshable_view);
         //Ok Http
         client = new OkHttpClient();
@@ -54,21 +56,21 @@ public class TaskNewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(TaskNewActivity.this, SettingActivity.class);
+                userinfo.setIntent(intent);
                 startActivity(intent);
             }
         });
         mData = new ArrayList<>();
-        new Thread(new Runnable(){
-            @Override
-            public void run() {
-                initData();
-            }
-        });
         refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
             public void onRefresh() {
                 try {
-                    initData();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            initData();
+                        }
+                    });
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -81,14 +83,24 @@ public class TaskNewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initData();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                initData();
+            }
+        });
     }
     private void initData() {
         setTitle("Atthis");
         RequestBody formBody = new FormBody.Builder().add("id", userinfo.id).add("authority", userinfo.authority).add("mode","getTask")
                 .build();
         final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/action.php").post(formBody).build();
-
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                initData();
+            }
+        });
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -169,8 +181,17 @@ public class TaskNewActivity extends AppCompatActivity {
         public String authority;
         public String username;
         public String token;
+        public String firstname;
+        public String lastname;
         public String id;
-
+        public void setIntent(Intent intent){
+            intent.putExtra("authority", authority)
+                    .putExtra("username", username)
+                    .putExtra("token", token)
+                    .putExtra("id", id)
+                    .putExtra("firstname", firstname)
+                    .putExtra("lastname", lastname);
+        }
         public String toString(){
             return authority+username+token+id;
         }
@@ -232,7 +253,7 @@ public class TaskNewActivity extends AppCompatActivity {
         public String lastname;
 
         public String toString(){
-            return firstname+lastname+"@"+stage+":\n"+msg+"\n";
+            return "--"+firstname+lastname+"@"+stage+":--\n"+msg+"\n";
         }
     }
 }

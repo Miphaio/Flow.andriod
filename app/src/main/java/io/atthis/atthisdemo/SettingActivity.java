@@ -17,12 +17,18 @@ import cn.jpush.android.api.TagAliasCallback;
 
 public class SettingActivity extends AppCompatActivity {
     private Button Logout;
+    private Button CreateTask;
+    private Button EditProfile;
+    private UserInfo userInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        userInfo = new UserInfo(getIntent());
         Logout = (Button) this.findViewById(R.id.logoutbutton);
+        CreateTask = (Button) this.findViewById(R.id.SettingCreateTask);
+        EditProfile = (Button) this.findViewById(R.id.SettingEditProfile);
         Logout.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
@@ -42,6 +48,22 @@ public class SettingActivity extends AppCompatActivity {
             }
 
         });
+        CreateTask.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(SettingActivity.this, CreateTaskActivity.class);
+                userInfo.setIntent(intent);
+                startActivity(intent);
+            }
+        });
+        EditProfile.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(SettingActivity.this, EditProfileActivity.class);
+                userInfo.setIntent(intent);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -53,5 +75,33 @@ public class SettingActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public class UserInfo{
+        public String authority;
+        public String username;
+        public String token;
+        public String id;
+        public String firstname;
+        public String lastname;
+        public void setIntent(Intent intent){
+            intent.putExtra("authority", authority)
+                    .putExtra("username", username)
+                    .putExtra("token", token)
+                    .putExtra("id", id)
+                    .putExtra("firstname", firstname)
+                    .putExtra("lastname", lastname);
+        }
+        public UserInfo(Intent intent){
+            authority = intent.getStringExtra("authority");
+            username = intent.getStringExtra("username");
+            token = intent.getStringExtra("token");
+            id = intent.getStringExtra("id");
+            firstname = intent.getStringExtra("firstname");
+            lastname = intent.getStringExtra("lastname");
+
+        }
+        public String toString(){
+            return authority+username+token+id;
+        }
     }
 }
