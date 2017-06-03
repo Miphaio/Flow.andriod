@@ -91,26 +91,31 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             try{
-                                Gson gson = new Gson();
-                                ReturnValue returnValue = gson.fromJson(response.body().string(), ReturnValue.class);
-                                if(returnValue.status.equals("succeed")){
-                                    Intent intent = new Intent();
-                                    Terror.setText("Success, Loading");
-                                    intent.setClass(MainActivity.this, TaskNewActivity.class);
-                                    intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
-                                            .putExtra("token", returnValue.token).putExtra("id", returnValue.id)
-                                            .putExtra("firstname", returnValue.firstname)
-                                            .putExtra("lastname", returnValue.lastname);
-                                    startActivity(intent);
-                                    MainActivity.this.finish();
+                                if(response.code() != 200){
+                                    Terror.setText("Server Error code "+response.code()+", Connect Admin");
                                 }else{
-                                    Terror.setText("Token out of date, using Password");
-                                    B01.setOnClickListener(new View.OnClickListener() {
-                                        public void onClick(View v) {
-                                            getLoginContent();
-                                        }
-                                    });
+                                    Gson gson = new Gson();
+                                    ReturnValue returnValue = gson.fromJson(response.body().string(), ReturnValue.class);
+                                    if(returnValue.status.equals("succeed")){
+                                        Intent intent = new Intent();
+                                        Terror.setText("Success, Loading");
+                                        intent.setClass(MainActivity.this, TaskNewActivity.class);
+                                        intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
+                                                .putExtra("token", returnValue.token).putExtra("id", returnValue.id)
+                                                .putExtra("firstname", returnValue.firstname)
+                                                .putExtra("lastname", returnValue.lastname);
+                                        startActivity(intent);
+                                        MainActivity.this.finish();
+                                    }else{
+                                        Terror.setText("Token out of date, using Password");
+                                        B01.setOnClickListener(new View.OnClickListener() {
+                                            public void onClick(View v) {
+                                                getLoginContent();
+                                            }
+                                        });
+                                    }
                                 }
+
 
                             }catch(IOException e){
 
@@ -141,8 +146,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try{
-                            Gson gson = new Gson();
-                            ReturnValue returnValue = gson.fromJson(response.body().string(), ReturnValue.class);
+                            if(response.code() != 200){
+                                Terror.setText("Server Error code "+response.code()+", Connect Admin");
+                            }else {
+                                Gson gson = new Gson();
+                                ReturnValue returnValue = gson.fromJson(response.body().string(), ReturnValue.class);
+                                Terror.setText(returnValue.toString());
                             if(returnValue.status.equals("succeed")){
                                 SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
@@ -171,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                             }else{
                                 Terror.setText(returnValue.status);
                             }
-
+                            }
                         }catch(IOException e){
 
                         }
@@ -189,6 +198,13 @@ public class MainActivity extends AppCompatActivity {
         public String lastname;
         public String token;
         public String id;
+
+        public String toString(){
+            if(status == null){
+                return "TTT";
+            }
+            return status+firstname+lastname;
+        }
     }
 }
 
