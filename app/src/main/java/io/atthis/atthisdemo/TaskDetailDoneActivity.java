@@ -31,7 +31,7 @@ public class TaskDetailDoneActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task_detail_seller);
+        setContentView(R.layout.activity_task_detail_done);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         passedRToken = new returnToken(intent);
@@ -53,7 +53,6 @@ public class TaskDetailDoneActivity extends AppCompatActivity {
                 sendUpdate();
             }
         });
-
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

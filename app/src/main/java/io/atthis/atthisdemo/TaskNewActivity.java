@@ -1,11 +1,8 @@
 package io.atthis.atthisdemo;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +16,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import io.atthis.atthisdemo.RefreshableView;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -62,7 +58,12 @@ public class TaskNewActivity extends AppCompatActivity {
             }
         });
         mData = new ArrayList<>();
-        initData();
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                initData();
+            }
+        });
         refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
             @Override
             public void onRefresh() {
@@ -83,6 +84,7 @@ public class TaskNewActivity extends AppCompatActivity {
         initData();
     }
     private void initData() {
+        setTitle("Atthis");
         RequestBody formBody = new FormBody.Builder().add("id", userinfo.id).add("authority", userinfo.authority).add("mode","getTask")
                 .build();
         final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/action.php").post(formBody).build();
@@ -143,7 +145,6 @@ public class TaskNewActivity extends AppCompatActivity {
     }
     private void jumpWithToken(returnToken reT){
         Intent intent = new Intent();
-        setTitle(reT.stage);
         switch (reT.stage){
             case "0":
             case "1":
@@ -153,13 +154,15 @@ public class TaskNewActivity extends AppCompatActivity {
                 intent.setClass(TaskNewActivity.this, TaskDetailSellerActivity.class);
                 break;
             case "3":
-                intent.setClass(TaskNewActivity.this, TaskDetailSellerActivity.class);
+                intent.setClass(TaskNewActivity.this, TaskDetailDoneActivity.class);
                 break;
             default:
                 return;
         }
         reT.addExtra(intent, userinfo);
         startActivity(intent);
+        clean();
+        refresh();
         // TODO when came back, refresh and DONE
     }
     public class UserInfo{
