@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import io.atthis.atthisdemo.RefreshableView;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,6 +34,7 @@ public class TaskNewActivity extends AppCompatActivity {
     private List<returnToken> syncToken;
     //定义ListView对象
     private ListView mListViewArray;
+    private RefreshableView refreshableView;
     private OkHttpClient client;
     private UserInfo userinfo;
     private Button B01;
@@ -47,6 +49,7 @@ public class TaskNewActivity extends AppCompatActivity {
         userinfo.username = intent.getStringExtra("username");
         userinfo.token = intent.getStringExtra("token");
         userinfo.id = intent.getStringExtra("id");
+        refreshableView = (RefreshableView) findViewById(R.id.refreshable_view);
         //Ok Http
         client = new OkHttpClient();
         //Initial Customize ListView
@@ -60,6 +63,18 @@ public class TaskNewActivity extends AppCompatActivity {
         });
         mData = new ArrayList<>();
         initData();
+        refreshableView.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    initData();
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                refreshableView.finishRefreshing();
+            }
+        }, 0);
 
     }
     @Override
@@ -87,7 +102,9 @@ public class TaskNewActivity extends AppCompatActivity {
                         try{
                             String Jre = response.body().string();
                             if(Jre.length()<10){
-                                setTitle("Nothing to show");
+                                setTitle("All Done");
+                                clean();
+                                refresh();
                             }else{
                                 Gson gson = new Gson();
                                 Type type = new TypeToken<List<returnToken>>() {

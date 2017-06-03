@@ -6,11 +6,17 @@
     android:layout_height="match_parent"
     tools:context="io.atthis.atthisdemo.TaskNewActivity">
 
-    <ListView
-        android:id="@+id/newlist"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <io.atthis.atthisdemo.RefreshableView
+        android:id="@+id/refreshable_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
+        <ListView
+            android:id="@+id/newlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </io.atthis.atthisdemo.RefreshableView>
     <Button
         android:id="@+id/flowbutton"
         style="@style/Widget.AppCompat.Button.Borderless"
