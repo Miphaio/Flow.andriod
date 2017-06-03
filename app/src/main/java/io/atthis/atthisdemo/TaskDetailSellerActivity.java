@@ -68,8 +68,7 @@ public class TaskDetailSellerActivity extends AppCompatActivity {
     }
     private void sendUpdate(){
         FormBody.Builder builder = new FormBody.Builder();
-        builder.add("mode", "Officer2Action").add("id",passedRToken.officerid).add("taskId", passedRToken.id)
-                .add("note", notetext.getText().toString())
+        builder.add("mode", "Officer2Action")
                 .build();
         RequestBody formBody = builder.build();
         final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/action.php").post(formBody).build();
