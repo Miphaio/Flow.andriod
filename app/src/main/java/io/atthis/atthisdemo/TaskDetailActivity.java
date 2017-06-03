@@ -1,9 +1,6 @@
 package io.atthis.atthisdemo;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,15 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.util.Set;
 
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -50,8 +40,8 @@ public class TaskDetailActivity extends AppCompatActivity {
         detailVin = (TextView) this.findViewById(R.id.DetailVIN);
         detailinfo = (TextView) this.findViewById(R.id.DetailInfo);
         detailnotes = (TextView) this.findViewById(R.id.DetailNotes);
-        notetext = (EditText) this.findViewById(R.id.NoteText);
-        detailaccept = (Button) this.findViewById(R.id.DetailAccept);
+        notetext = (EditText) this.findViewById(R.id.SDetailComments);
+        detailaccept = (Button) this.findViewById(R.id.SDetailUpdate);
         detailreject = (Button) this.findViewById(R.id.DetailReject);
         setTitle(passedRToken.toString());
         detailseller.setText(passedRToken.seller);
@@ -95,6 +85,8 @@ public class TaskDetailActivity extends AppCompatActivity {
                 .build();
         RequestBody formBody = builder.build();
         final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/action.php").post(formBody).build();
+        detailaccept.setVisibility(View.INVISIBLE);
+        detailreject.setVisibility(View.INVISIBLE);
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -102,6 +94,8 @@ public class TaskDetailActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         setTitle("Error");
+                        detailaccept.setVisibility(View.VISIBLE);
+                        detailreject.setVisibility(View.VISIBLE);
                     }
                 });
             }
