@@ -81,7 +81,10 @@ public class TaskDetailActivity extends AppCompatActivity {
                 builder.add("action", "reject");
                 break;
         }
-        builder.add("mode", "Officer2Action").add("id",passedRToken.officerid).add("taskId", passedRToken.id).add("note", notetext.getText().toString())
+        builder.add("mode", "Officer2Action")
+                .add("id",passedRToken.officerid)
+                .add("taskId", passedRToken.id)
+                .add("note", notetext.getText().toString())
                 .build();
         RequestBody formBody = builder.build();
         final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/action.php").post(formBody).build();

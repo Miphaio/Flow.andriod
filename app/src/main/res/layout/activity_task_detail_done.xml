@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.atthis.atthisdemo.TaskDetailSellerActivity">
+    tools:context="io.atthis.atthisdemo.TaskDetailDoneActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -77,8 +77,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="-1dp"
-        android:backgroundTint="@android:color/holo_orange_dark"
-        android:text="Update Submit"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="Done"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

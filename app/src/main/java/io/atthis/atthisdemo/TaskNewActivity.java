@@ -143,7 +143,21 @@ public class TaskNewActivity extends AppCompatActivity {
     }
     private void jumpWithToken(returnToken reT){
         Intent intent = new Intent();
-        intent.setClass(TaskNewActivity.this, TaskDetailActivity.class);
+        setTitle(reT.stage);
+        switch (reT.stage){
+            case "0":
+            case "1":
+                intent.setClass(TaskNewActivity.this, TaskDetailActivity.class);
+                break;
+            case "2":
+                intent.setClass(TaskNewActivity.this, TaskDetailSellerActivity.class);
+                break;
+            case "3":
+                intent.setClass(TaskNewActivity.this, TaskDetailSellerActivity.class);
+                break;
+            default:
+                return;
+        }
         reT.addExtra(intent, userinfo);
         startActivity(intent);
         // TODO when came back, refresh and DONE

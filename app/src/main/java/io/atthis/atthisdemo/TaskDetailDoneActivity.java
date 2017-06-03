@@ -19,7 +19,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class TaskDetailSellerActivity extends AppCompatActivity {
+public class TaskDetailDoneActivity extends AppCompatActivity {
     private TextView detailnotes;
     private EditText detailseller;
     private Button detailupdate;
@@ -69,7 +69,7 @@ public class TaskDetailSellerActivity extends AppCompatActivity {
     private void sendUpdate(){
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("mode", "Officer1Action")
-                .add("action","submit")
+                .add("action","done")
 //                .add("carinfo", )
                 .add("note", detailcomments.getText().toString())
                 .add("taskId", passedRToken.id)
