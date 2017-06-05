@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="Functions" />
+            android:text="@string/functions" />
 
         <Button
             android:id="@+id/SettingCreateTask"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="Create Task" />
+            android:text="@string/create_task" />
 
         <Button
             android:id="@+id/SettingEditProfile"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="Edit Profile" />
+            android:text="@string/edit_profile" />
 
         <Space
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="App Setting" />
+            android:text="@string/app_setting" />
 
         <Switch
             android:id="@+id/languageswitch"
@@ -67,14 +67,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="使用中文浏览" />
+            android:text="@string/view_as_chinese" />
         <Button
             android:id="@+id/bugReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="Report Bug" />
+            android:text="@string/report_bug" />
         <Button
             android:id="@+id/logoutbutton"
             style="@style/Widget.AppCompat.Button.Colored"
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:text="Logout" />
+            android:text="@string/logout" />
 
     </LinearLayout>
     </ScrollView>

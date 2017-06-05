@@ -35,8 +35,8 @@ public class EditProfileActivity extends AppCompatActivity {
         btnsubmit = (Button) this.findViewById(R.id.EPSubmit);
         userInfo = new UserInfo(getIntent());
         client = new OkHttpClient();
-        firstname.setText(userInfo.firstname);
-        lastname.setText(userInfo.lastname);
+        firstname.setText(userInfo.getFirstname());
+        lastname.setText(userInfo.getLastname());
         btnsubmit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -50,8 +50,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 .add("firstname",firstname.getText().toString())
                 .add("lastname", lastname.getText().toString())
                 .add("password", password.getText().toString())
-                .add("authority", userInfo.authority)
-                .add("id", userInfo.id)
+                .add("authority", userInfo.getAuthority())
+                .add("id", userInfo.getId())
                 .build();
         RequestBody formBody = builder.build();
         final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/action.php").post(formBody).build();
@@ -83,33 +83,5 @@ public class EditProfileActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-    public class UserInfo{
-        public String authority;
-        public String username;
-        public String token;
-        public String id;
-        public String firstname;
-        public String lastname;
-        public void setIntent(Intent intent){
-            intent.putExtra("authority", authority)
-                    .putExtra("username", username)
-                    .putExtra("token", token)
-                    .putExtra("id", id)
-                    .putExtra("firstname", firstname)
-                    .putExtra("lastname", lastname);
-        }
-        public UserInfo(Intent intent){
-            authority = intent.getStringExtra("authority");
-            username = intent.getStringExtra("username");
-            token = intent.getStringExtra("token");
-            id = intent.getStringExtra("id");
-            firstname = intent.getStringExtra("firstname");
-            lastname = intent.getStringExtra("lastname");
-
-        }
-        public String toString(){
-            return authority+username+token+id;
-        }
     }
 }

@@ -76,32 +76,4 @@ public class SettingActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public class UserInfo{
-        public String authority;
-        public String username;
-        public String token;
-        public String id;
-        public String firstname;
-        public String lastname;
-        public void setIntent(Intent intent){
-            intent.putExtra("authority", authority)
-                    .putExtra("username", username)
-                    .putExtra("token", token)
-                    .putExtra("id", id)
-                    .putExtra("firstname", firstname)
-                    .putExtra("lastname", lastname);
-        }
-        public UserInfo(Intent intent){
-            authority = intent.getStringExtra("authority");
-            username = intent.getStringExtra("username");
-            token = intent.getStringExtra("token");
-            id = intent.getStringExtra("id");
-            firstname = intent.getStringExtra("firstname");
-            lastname = intent.getStringExtra("lastname");
-
-        }
-        public String toString(){
-            return authority+username+token+id;
-        }
-    }
 }

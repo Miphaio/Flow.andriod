@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AtthisDemo</string>
+    <string name="app_name">Atthis</string>
     <string name="title_activity_switch">SwitchActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -13,4 +13,27 @@
     <string name="updated_at">Updated %1$s Earlier</string>
     <string name="updated_just_now">Just Updated</string>
     <string name="time_error">Time Error</string>
+    <string name="first_name">FirstName</string>
+    <string name="last_name">LastName</string>
+    <string name="password_hint">Hint: Leave Password Empty to Keep it</string>
+    <string name="update">Update</string>
+    <string name="user_name">UserName</string>
+    <string name="login">Login</string>
+    <string name="functions">Functions</string>
+    <string name="app_setting">App Setting</string>
+    <string name="create_task">Create Task</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="logout">Logout</string>
+    <string name="report_bug">Report Bug</string>
+    <string name="view_as_chinese">使用中文浏览</string>
+    <string name="accept">Accept</string>
+    <string name="comment">Comment!</string>
+    <string name="car_info">Car Info</string>
+    <string name="notes">Notes</string>
+    <string name="reject">Reject</string>
+    <string name="seller">Seller</string>
+    <string name="default_textview">-</string>
+    <string name="vin">VIN</string>
+    <string name="done">Done</string>
+    <string name="update_submit"><![CDATA[Update & Submit]]></string>
 </resources>

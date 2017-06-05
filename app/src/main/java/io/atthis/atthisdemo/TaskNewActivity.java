@@ -38,15 +38,9 @@ public class TaskNewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_new);
-        userinfo = new UserInfo();
         Intent intent = getIntent();
+        userinfo = new UserInfo(intent);
         B01 = (Button) this.findViewById(R.id.flowbutton);
-        userinfo.authority = intent.getStringExtra("authority");
-        userinfo.username = intent.getStringExtra("username");
-        userinfo.token = intent.getStringExtra("token");
-        userinfo.id = intent.getStringExtra("id");
-        userinfo.firstname = intent.getStringExtra("firstname");
-        userinfo.lastname = intent.getStringExtra("lastname");
         refreshableView = (RefreshableView) findViewById(R.id.refreshable_view);
         //Ok Http
         client = new OkHttpClient();
@@ -92,7 +86,10 @@ public class TaskNewActivity extends AppCompatActivity {
     }
     private void initData() {
         setTitle("Atthis");
-        RequestBody formBody = new FormBody.Builder().add("id", userinfo.id).add("authority", userinfo.authority).add("mode","getTask")
+        RequestBody formBody = new FormBody.Builder()
+                .add("id", userinfo.getId())
+                .add("authority", userinfo.getAuthority())
+                .add("mode","getTask")
                 .build();
         final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/action.php").post(formBody).build();
         new Thread(new Runnable(){
@@ -175,26 +172,6 @@ public class TaskNewActivity extends AppCompatActivity {
         startActivity(intent);
         clean();
         refresh();
-        // TODO when came back, refresh and DONE
-    }
-    private class UserInfo{
-        public String authority;
-        public String username;
-        public String token;
-        public String firstname;
-        public String lastname;
-        public String id;
-        public void setIntent(Intent intent){
-            intent.putExtra("authority", authority)
-                    .putExtra("username", username)
-                    .putExtra("token", token)
-                    .putExtra("id", id)
-                    .putExtra("firstname", firstname)
-                    .putExtra("lastname", lastname);
-        }
-        public String toString(){
-            return authority+username+token+id;
-        }
     }
     private class returnToken{
         public String id;
@@ -233,7 +210,7 @@ public class TaskNewActivity extends AppCompatActivity {
                     .putExtra("stage1Note", stage1Note).putExtra("stage3Officer_id", stage3Officer_id)
                     .putExtra("stage3Officer_id", stage3Officer_id).putExtra("stage2Note", stage2Note)
                     .putExtra("stage3Note", stage3Note).putExtra("closeTime", closeTime)
-                    .putExtra("userInfoId", userinfo.id).putExtra("notes", notesToAllString());
+                    .putExtra("userInfoId", userinfo.getId()).putExtra("notes", notesToAllString());
         }
         private String notesToAllString(){
             String re = "";
