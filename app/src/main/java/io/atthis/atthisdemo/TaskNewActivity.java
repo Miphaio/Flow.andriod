@@ -177,7 +177,7 @@ public class TaskNewActivity extends AppCompatActivity {
         refresh();
         // TODO when came back, refresh and DONE
     }
-    public class UserInfo{
+    private class UserInfo{
         public String authority;
         public String username;
         public String token;
@@ -196,7 +196,7 @@ public class TaskNewActivity extends AppCompatActivity {
             return authority+username+token+id;
         }
     }
-    public class returnToken{
+    private class returnToken{
         public String id;
         public String seller;
         public String car_info;
@@ -213,17 +213,17 @@ public class TaskNewActivity extends AppCompatActivity {
         public String stage2Note;
         public String stage3Note;
         public String closeTime;
-        public ArrayList<returnNote> notes;
-        public String getTitle(){
+        ArrayList<returnNote> notes;
+        String getTitle(){
             return "Selling Process";
         }
-        public String getSubTitle(){
+        String getSubTitle(){
             return "From: "+seller;
         }
-        public String getThirdSubTitle(){
+        String getThirdSubTitle(){
             return "Car VIN: "+vin;
         }
-        public void addExtra(Intent intent, UserInfo userinfo){
+        void addExtra(Intent intent, UserInfo userinfo){
             intent.putExtra("id", id).putExtra("seller",seller)
                     .putExtra("car_info", car_info).putExtra("vin", vin)
                     .putExtra("stage", stage).putExtra("stage1Created", stage1Created)
@@ -246,11 +246,11 @@ public class TaskNewActivity extends AppCompatActivity {
             return id+seller+car_info+vin;
         }
     }
-    public class returnNote{
-        public String msg;
-        public String stage;
-        public String firstname;
-        public String lastname;
+    private class returnNote{
+        String msg;
+        String stage;
+        String firstname;
+        String lastname;
 
         public String toString(){
             return "--"+firstname+lastname+"@"+stage+":--\n"+msg+"\n";
