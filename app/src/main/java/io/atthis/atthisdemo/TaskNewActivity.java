@@ -101,7 +101,12 @@ public class TaskNewActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setTitle("Network Error");
+                    }
+                });
             }
 
             @Override
@@ -111,7 +116,12 @@ public class TaskNewActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         try{
-                            String Jre = response.body().string();
+                            String Jre = "";
+                            try{
+                                Jre = response.body().string();
+                            }catch(NullPointerException e){
+
+                            }
                             if(Jre.length()<10){
                                 setTitle("All Done");
                                 clean();
