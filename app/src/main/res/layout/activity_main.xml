@@ -22,6 +22,13 @@
         android:layout_height="wrap_content"
         android:weightSum="1">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="0.01"
+            tools:layout_editor_absoluteX="59dp"
+            tools:layout_editor_absoluteY="-11dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,6 +49,13 @@
 
         </LinearLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_weight="0.01"
+            tools:layout_editor_absoluteX="59dp"
+            tools:layout_editor_absoluteY="-11dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,7 +67,6 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_weight="0.30"
                 android:text="@string/user_name"
                 tools:ignore="NestedWeights" />
@@ -62,8 +75,6 @@
                 android:id="@+id/username"
                 android:layout_width="235dp"
                 android:layout_height="42dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
@@ -82,8 +93,7 @@
                 android:layout_width="50dp"
                 android:layout_height="17dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="0.28"
+                android:layout_weight="0.3"
                 android:text="Password"
                 tools:ignore="HardcodedText,NestedWeights" />
 
@@ -91,13 +101,18 @@
                 android:id="@+id/password"
                 android:layout_width="235dp"
                 android:layout_height="42dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPassword"
                 tools:ignore="LabelFor" />
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_weight="0.01"
+            tools:layout_editor_absoluteX="59dp"
+            tools:layout_editor_absoluteY="-11dp" />
 
         <TextView
         android:id="@+id/Terror"
