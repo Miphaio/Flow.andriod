@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.atthis.atthisdemo.TaskNewActivity">
+
+    <io.atthis.atthisdemo.RefreshableView
+        android:id="@+id/refreshable_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <ListView
+            android:id="@+id/newlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </io.atthis.atthisdemo.RefreshableView>
+    <Button
+        android:id="@+id/flowbutton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="10dp"
+        android:background="@mipmap/ic_launcher_round"
+        app:layout_anchorGravity="top"
+        tools:ignore="RtlHardcoded" />
+
+
+</android.support.design.widget.CoordinatorLayout>

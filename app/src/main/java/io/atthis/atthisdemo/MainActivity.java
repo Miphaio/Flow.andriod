@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                                     if(returnValue.status.equals("succeed")){
                                         Intent intent = new Intent();
                                         Terror.setText("Success, Loading");
-                                        intent.setClass(MainActivity.this, TaskNewActivity.class);
+                                        intent.setClass(MainActivity.this, TaskNew2Activity.class);
                                         intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
                                                 .putExtra("token", returnValue.token).putExtra("id", returnValue.id)
                                                 .putExtra("firstname", returnValue.firstname)
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                                 Terror.setText(token);
                                 Intent intent = new Intent();
                                 Terror.setText("Success, Loading");
-                                intent.setClass(MainActivity.this, TaskNewActivity.class);
+                                intent.setClass(MainActivity.this, TaskNew2Activity.class);
                                 intent.putExtra("username", returnValue.username)
                                         .putExtra("authority",returnValue.authority)
                                         .putExtra("token", returnValue.token)

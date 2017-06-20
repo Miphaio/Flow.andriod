@@ -146,7 +146,9 @@
         <activity android:name=".TaskDetailSellerActivity" />
         <activity android:name=".TaskDetailDoneActivity" />
         <activity android:name=".CreateTaskActivity" />
-        <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".WebTaskDetailActivity" />
+        <activity android:name=".TaskNew2Activity"></activity>
     </application>
 
 </manifest>
