@@ -91,10 +91,8 @@ public class TaskNew2Activity extends AppCompatActivity {
         setTitle("Atthis");
         RequestBody formBody = new FormBody.Builder()
                 .add("id", userinfo.getId())
-                .add("authority", userinfo.getAuthority())
-                .add("mode", "getTask")
                 .build();
-        final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/action.php").post(formBody).build();
+        final Request request = new Request.Builder().url("http://atthis.sushithedog.com/src/api/GetTask.php").post(formBody).build();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -121,6 +119,7 @@ public class TaskNew2Activity extends AppCompatActivity {
                         public void run() {
                             if (Jre.length() < 10) {
                                 setTitle("All Done");
+                                
                                 clean();
                                 refresh();
                             } else {
@@ -173,70 +172,30 @@ public class TaskNew2Activity extends AppCompatActivity {
     }
 
     private class returnToken {
-        public String id;
-        public String seller;
-        public String car_info;
-        public String vin;
+        public int id;
         public String stage;
-        public String stage1Created;
-        public String stage2Created;
-        public String stage3Created;
-        public String status;
-        public String stage1Officer_id;
-        public String stage2Officer_id;
-        public String stage3Officer_id;
-        public String stage1Note;
-        public String stage2Note;
-        public String stage3Note;
-        public String closeTime;
-        ArrayList<returnNote> notes;
+        public String from;
+        public String type;
+
 
         String getTitle() {
-            return "Selling Process";
+            return type;
         }
 
         String getSubTitle() {
-            return "From: " + seller;
+            return "From: " + from;
         }
 
         String getThirdSubTitle() {
-            return "Car VIN: " + vin;
+            return "Stage: " + stage;
         }
 
         void addExtra(Intent intent, UserInfo userinfo) {
-            intent.putExtra("id", id).putExtra("seller", seller)
-                    .putExtra("car_info", car_info).putExtra("vin", vin)
-                    .putExtra("stage", stage).putExtra("stage1Created", stage1Created)
-                    .putExtra("stage2Created", stage2Created).putExtra("stage3Created", stage3Created)
-                    .putExtra("status", status).putExtra("stage1Officer_id", stage1Officer_id)
-                    .putExtra("stage2Officer_id", stage2Officer_id).putExtra("stage3Officer_id", stage3Officer_id)
-                    .putExtra("stage1Note", stage1Note).putExtra("stage3Officer_id", stage3Officer_id)
-                    .putExtra("stage3Officer_id", stage3Officer_id).putExtra("stage2Note", stage2Note)
-                    .putExtra("stage3Note", stage3Note).putExtra("closeTime", closeTime)
-                    .putExtra("userInfoId", userinfo.getId()).putExtra("notes", notesToAllString());
-        }
-
-        private String notesToAllString() {
-            String re = "";
-            for (int i = 0; i < notes.size(); i++) {
-                re += notes.get(i).toString();
-            }
-            return re;
-        }
-
-        public String toString() {
-            return id + seller + car_info + vin;
+            intent.putExtra("id", id)
+                    .putExtra("type", type)
+                    .putExtra("officerId", userinfo.getId())
+                    .putExtra("authority", userinfo.getAuthority());
         }
     }
 
-    private class returnNote {
-        String msg;
-        String stage;
-        String firstname;
-        String lastname;
-
-        public String toString() {
-            return "--" + firstname + lastname + "@" + stage + ":--\n" + msg + "\n";
-        }
-    }
 }

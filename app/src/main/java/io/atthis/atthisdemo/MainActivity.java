@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         String token = preferences.getString("token", "");
         RequestBody formBody = new FormBody.Builder().add("token", token).add("mode","token")
                 .build();
-        final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/Login.php").post(formBody).build();
+        final Request request = new Request.Builder().url("http://atthis.sushithedog.com/src/api/Login.php").post(formBody).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -96,11 +96,11 @@ public class MainActivity extends AppCompatActivity {
                                 }else{
                                     Gson gson = new Gson();
                                     ReturnValue returnValue = gson.fromJson(response.body().string(), ReturnValue.class);
-                                    if(returnValue.status.equals("succeed")){
+                                    if(returnValue.status.equals("success")){
                                         Intent intent = new Intent();
                                         Terror.setText("Success, Loading");
                                         intent.setClass(MainActivity.this, TaskNew2Activity.class);
-                                        intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.authority)
+                                        intent.putExtra("username", returnValue.username).putExtra("authority",returnValue.auth)
                                                 .putExtra("token", returnValue.token).putExtra("id", returnValue.id)
                                                 .putExtra("firstname", returnValue.firstname)
                                                 .putExtra("lastname", returnValue.lastname);
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     private void getLoginContent(){
         RequestBody formBody = new FormBody.Builder().add("username", E01.getText().toString()).add("password",E02.getText().toString()).add("mode","up")
                 .build();
-        final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/Login.php").post(formBody).build();
+        final Request request = new Request.Builder().url("http://atthis.sushithedog.com/src/api/Login.php").post(formBody).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                                 Gson gson = new Gson();
                                 ReturnValue returnValue = gson.fromJson(response.body().string(), ReturnValue.class);
                                 Terror.setText(returnValue.toString());
-                            if(returnValue.status.equals("succeed")){
+                            if(returnValue.status.equals("success")){
                                 SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
                                 editor.putString("token", returnValue.token);
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                                 Terror.setText("Success, Loading");
                                 intent.setClass(MainActivity.this, TaskNew2Activity.class);
                                 intent.putExtra("username", returnValue.username)
-                                        .putExtra("authority",returnValue.authority)
+                                        .putExtra("authority",returnValue.auth)
                                         .putExtra("token", returnValue.token)
                                         .putExtra("id", returnValue.id)
                                         .putExtra("firstname", returnValue.firstname)
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public class ReturnValue{
         public String status;
-        public String authority;
+        public String auth;
         public String username;
         public String firstname;
         public String lastname;
