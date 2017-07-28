@@ -119,7 +119,7 @@ public class TaskNew2Activity extends AppCompatActivity {
                         public void run() {
                             if (Jre.length() < 10) {
                                 setTitle("All Done");
-                                
+
                                 clean();
                                 refresh();
                             } else {
