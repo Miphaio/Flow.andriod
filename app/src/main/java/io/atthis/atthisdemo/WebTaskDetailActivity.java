@@ -51,11 +51,11 @@ public class WebTaskDetailActivity extends AppCompatActivity {
         webview.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress < 100) {
-//                    setTitle(newProgress + "");
-                } else {
-
-                }
+//                if (newProgress < 100) {
+////                    setTitle(newProgress + "");
+//                } else {
+//
+//                }
             }
             @Override
             public boolean onJsAlert(WebView view, String url, String message, JsResult result) {

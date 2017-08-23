@@ -1,89 +1,72 @@
 package io.atthis.atthisdemo;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import android.webkit.JsResult;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class CreateTaskActivity extends AppCompatActivity {
-    private EditText seller;
-    private EditText info;
-    private EditText vin;
-    private EditText assignto;
-    private EditText notes;
-    private Button submitbtn;
-    private OkHttpClient client;
+    private WebView webview;
     private UserInfo userInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_task);
-        seller = (EditText) this.findViewById(R.id.CTseller);
-        info = (EditText) this.findViewById(R.id.CTcarinfo);
-        vin = (EditText) this.findViewById(R.id.CTvin);
-        assignto = (EditText) this.findViewById(R.id.CTassignto);
-        notes = (EditText) this.findViewById(R.id.CTnotes);
-        submitbtn = (Button) this.findViewById(R.id.CTButtonAssign);
+        setContentView(R.layout.activity_web_task_detail);
+        webview = (WebView) findViewById(R.id.webview1);
+        webview.clearCache(true);
+        Intent intent = getIntent();
+        WebSettings webSettings = webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+//        webSettings.setAllowFileAccess(true); //设置可以访问文件
+//        webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
+        webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
+        webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         userInfo = new UserInfo(getIntent());
-        client = new OkHttpClient();
-        setTitle(userInfo.toString());
-        submitbtn.setOnClickListener(new View.OnClickListener(){
+        String urls = "http://atthis.sushithedog.com?mode=Create&userid=" + userInfo.getId() + "&language=en" + "&authority=" + userInfo.getAuthority();
+        webview.loadUrl(urls);
+
+        webview.setWebViewClient(new WebViewClient() {
             @Override
-            public void onClick(View v) {
-                submittask();
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                setTitle("Loading");
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                setTitle("Create A Task");
             }
         });
-
-    }
-    private void submittask(){
-        FormBody.Builder builder = new FormBody.Builder();
-        builder.add("mode", "createTask")
-                .add("officer1",userInfo.getId())
-                .add("officer2", assignto.getText().toString())
-                .add("carInfo", info.getText().toString())
-                .add("seller", seller.getText().toString())
-                .add("vin", vin.getText().toString())
-                .add("note", notes.getText().toString())
-                .build();
-        RequestBody formBody = builder.build();
-        final Request request = new Request.Builder().url("http://flow.sushithedog.com/src/action.php").post(formBody).build();
-        submitbtn.setVisibility(View.INVISIBLE);
-        client.newCall(request).enqueue(new Callback() {
+        webview.setWebChromeClient(new WebChromeClient() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setTitle("Error");
-                        submitbtn.setVisibility(View.VISIBLE);
-                    }
-                });
+            public void onProgressChanged(WebView view, int newProgress) {
+//                if (newProgress < 100) {
+////                    setTitle(newProgress + "");
+//                } else {
+//
+//                }
             }
-
             @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            setTitle(response.body().string());
-                            onBackPressed();
-                        }catch(IOException e){
-                            setTitle(e.toString());
-                        }
-                    }
-                });
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                if(message.equals("Close")){
+                    finish();
+                }else{
+                    setTitle(message);
+                }
+                result.confirm();
+                return true;
             }
         });
     }
