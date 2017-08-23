@@ -165,7 +165,7 @@ public class TaskNew2Activity extends AppCompatActivity {
     private void jumpWithToken(returnToken reT) {
         Intent intent = new Intent();
         intent.setClass(TaskNew2Activity.this, WebTaskDetailActivity.class);
-        reT.addExtra(intent, userinfo);
+        reT.addExtra(intent);
         startActivity(intent);
         clean();
         refresh();
@@ -189,11 +189,9 @@ public class TaskNew2Activity extends AppCompatActivity {
             return "Type: " + type + "   "+ "Stage: " + stage;
         }
 
-        void addExtra(Intent intent, UserInfo userinfo) {
-            intent.putExtra("id", id)
-                    .putExtra("type", type)
-                    .putExtra("officerId", userinfo.getId())
-                    .putExtra("authority", userinfo.getAuthority());
+        void addExtra(Intent intent) {
+            intent.putExtra("id", id+"")
+                    .putExtra("type", type);
         }
     }
 
