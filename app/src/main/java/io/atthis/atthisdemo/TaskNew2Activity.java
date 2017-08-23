@@ -177,7 +177,6 @@ public class TaskNew2Activity extends AppCompatActivity {
         public String from;
         public String type;
 
-
         String getTitle() {
             return type;
         }
@@ -187,7 +186,7 @@ public class TaskNew2Activity extends AppCompatActivity {
         }
 
         String getThirdSubTitle() {
-            return "Stage: " + stage;
+            return "Type: " + type + "   "+ "Stage: " + stage;
         }
 
         void addExtra(Intent intent, UserInfo userinfo) {
