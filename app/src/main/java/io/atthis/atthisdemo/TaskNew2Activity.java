@@ -133,6 +133,7 @@ public class TaskNew2Activity extends AppCompatActivity {
                                     mData.add(new TaskDetail(rToken.get(i).getTitle(), rToken.get(i).getSubTitle(), rToken.get(i).getThirdSubTitle()));
                                     syncToken.add(rToken.get(i));
                                 }
+                                mData.add(new TaskDetail("Inventory", "Click To Enter The Inventory", ""));
                                 refresh();
                             }
                         }

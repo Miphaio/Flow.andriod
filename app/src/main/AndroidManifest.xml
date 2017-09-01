@@ -139,7 +139,6 @@
             android:name="JPUSH_APPKEY"
             android:value="5b8497fcd134f3f89362ef06" />
 
-        <activity android:name=".DetailActivity" />
         <activity android:name=".TaskNewActivity" />
         <activity android:name=".TaskDetailActivity" />
         <activity android:name=".SettingActivity" />
