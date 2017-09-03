@@ -166,6 +166,8 @@ public class TaskNewActivity extends AppCompatActivity {
         Intent intent = new Intent();
         switch (reT.stage){
             case "0":
+                intent.setClass(TaskNewActivity.this, TaskInventory.class);
+                break;
             case "1":
                 intent.setClass(TaskNewActivity.this, TaskDetailActivity.class);
                 break;

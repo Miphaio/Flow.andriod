@@ -34,6 +34,11 @@
     <string name="seller">Seller</string>
     <string name="default_textview">-</string>
     <string name="vin">VIN</string>
+    <string name="carMake">Make</string>
+    <string name="carModel">Model</string>
+    <string name="carDataId">Data Id</string>
+    <string name="carYear">Year</string>
+    <string name="carMileage">Mileage</string>
     <string name="done">Done</string>
     <string name="update_submit"><![CDATA[Update & Submit]]></string>
 </resources>
