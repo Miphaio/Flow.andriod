@@ -129,11 +129,12 @@ public class TaskNew2Activity extends AppCompatActivity {
                                 syncToken = new ArrayList<>();
                                 List<returnToken> rToken = gson.fromJson(Jre, type);
                                 clean();
-                                for (int i = 0; i < rToken.size(); i++) {
+                                for (int i = 1; i < rToken.size(); i++) {
                                     mData.add(new TaskDetail(rToken.get(i).getTitle(), rToken.get(i).getSubTitle(), rToken.get(i).getThirdSubTitle()));
                                     syncToken.add(rToken.get(i));
                                 }
                                 mData.add(new TaskDetail("Inventory", "Click To Enter The Inventory", ""));
+                                //syncToken.add(rToken.get(0));
                                 refresh();
                             }
                         }
@@ -195,5 +196,4 @@ public class TaskNew2Activity extends AppCompatActivity {
                     .putExtra("type", type);
         }
     }
-
 }

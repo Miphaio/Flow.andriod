@@ -7,9 +7,20 @@ import junit.framework.Test;
  */
 
 public class TaskDetail {
+    //private int imageId;
     private String title;
     private String Tester;
     private String Tester2;
+
+    public TaskDetail(String title, String Tester, String Tester2){
+        this.title = title;
+        this.Tester = Tester;
+        this.Tester2 = Tester2;
+    }
+
+    /*public int getImageId() {
+        return this.imageId;
+    }*/
     public String getTitle(){
         return this.title;
     }
@@ -19,11 +30,10 @@ public class TaskDetail {
     public String getTester2(){
         return this.Tester2;
     }
-    public TaskDetail(String title, String Tester, String Tester2){
-        this.title = title;
-        this.Tester = Tester;
-        this.Tester2 = Tester2;
-    }
+
+    /*public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }*/
     public void setTitle(String title){
         this.title = title;
     }

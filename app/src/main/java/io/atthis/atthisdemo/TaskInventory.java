@@ -3,9 +3,13 @@ package io.atthis.atthisdemo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,14 +26,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
 /**
  * Created by Jacky on 9/2/17.
  */
 
 public class TaskInventory extends AppCompatActivity {
+    private List<TaskDetail> mData;
+    private List<returnToken> syncToken;
+    private ListView mListViewArray;
 
-    private returnToken passedToken;
     private EditText vinSearch;
     private TextView carMake;
     private TextView carModel;
@@ -57,10 +62,6 @@ public class TaskInventory extends AppCompatActivity {
         carMileage = (TextView)findViewById(R.id.tv_car_mileage);
 
         Intent intent = getIntent();
-        passedToken = new returnToken(intent);
-        if (intent != null) {     //more expection need to be handled here, come back later
-            fillInLayoutText(passedToken);
-        }
 
         client = new OkHttpClient();
         getCarInfo();
@@ -96,7 +97,7 @@ public class TaskInventory extends AppCompatActivity {
                     @Override
                     public void run() {
                         Gson gson = new Gson();
-                        gson.toJson(passedToken); //learning gson, come back later
+                        gson.toJson(syncToken); //learning gson, come back later
                     }
                 });
 
@@ -107,6 +108,32 @@ public class TaskInventory extends AppCompatActivity {
 
     private void fillInLayoutText(returnToken reT) {    //orgnize and fill in the info here
 
+    }
+
+    private void clean() {
+        mData = new ArrayList<>();
+    }
+
+    private void refresh() {
+        //generate layout
+        LayoutInflater inflater = getLayoutInflater();
+        TaskAdapter adapter = new TaskAdapter(inflater, mData);
+        mListViewArray.setAdapter(adapter);
+        //Click function of List view
+        mListViewArray.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
+                jumpWithToken(syncToken.get(position));
+            }
+        });
+    }
+
+    private void jumpWithToken(returnToken reT) {
+        Intent intent = new Intent();
+        intent.setClass(TaskInventory.this, WebTaskDetailActivity.class);
+        //reT.addExtra(intent);
+        startActivity(intent);
+        clean();
+        refresh();
     }
 
     public class returnToken {
@@ -125,6 +152,7 @@ public class TaskInventory extends AppCompatActivity {
         public String bodyStyle;
         public String comments;
         public String picture;
+
         public returnToken(Intent intent) {
             id = intent.getStringExtra("id");
             make = intent.getStringExtra("make");

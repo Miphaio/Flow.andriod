@@ -34,8 +34,9 @@ public class WebTaskDetailActivity extends AppCompatActivity {
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         final returnToken rToken = new returnToken(intent);
-        String urls = "mode="+rToken.type+"&taskid="+rToken.id;
+        String urls = "mode="+rToken.type + "&taskid="+rToken.id;
         webview.loadUrl("http://atthis.sushithedog.com/?"+urls);
+
 
         webview.setWebViewClient(new WebViewClient() {
             @Override

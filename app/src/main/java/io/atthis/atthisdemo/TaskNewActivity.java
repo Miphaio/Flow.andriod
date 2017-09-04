@@ -1,6 +1,6 @@
 package io.atthis.atthisdemo;
 
-import android.content.Intent;
+/*import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -166,8 +166,6 @@ public class TaskNewActivity extends AppCompatActivity {
         Intent intent = new Intent();
         switch (reT.stage){
             case "0":
-                intent.setClass(TaskNewActivity.this, TaskInventory.class);
-                break;
             case "1":
                 intent.setClass(TaskNewActivity.this, TaskDetailActivity.class);
                 break;
@@ -245,4 +243,4 @@ public class TaskNewActivity extends AppCompatActivity {
             return "--"+firstname+lastname+"@"+stage+":--\n"+msg+"\n";
         }
     }
-}
+}*/

@@ -1,6 +1,6 @@
 package io.atthis.atthisdemo;
 
-import android.content.Intent;
+/*import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -150,4 +150,4 @@ public class TaskDetailSellerActivity extends AppCompatActivity {
             return id+seller+car_info;
         }
     }
-}
+}*/
